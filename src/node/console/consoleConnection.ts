@@ -1,18 +1,17 @@
 import net from "net";
 import type { Instance } from "reconnect-core";
 
+import { Command } from "../../common/types";
+import type { SlpRawEventPayload } from "../../common/utils/slpStream";
 import { NETWORK_MESSAGE } from "../../common/utils/slpStream";
+import { SlpStream, SlpStreamEvent, SlpStreamMode } from "../../common/utils/slpStream";
 import { TypedEventEmitter } from "../../common/utils/typedEventEmitter";
 import type { CommunicationMessage } from "./communication";
 import { CommunicationType, ConsoleCommunication } from "./communication";
 import { loadReconnectCoreModule } from "./loadReconnectCoreModule";
 import type { Connection, ConnectionDetails, ConnectionEventMap, ConnectionSettings } from "./types";
-import { ConnectionEvent, ConnectionStatus, Ports, BroadcastMessageType } from "./types";
 import type { BroadcastMessage } from "./types";
-
-import { SlpStream, SlpStreamMode, SlpStreamEvent } from "../../common/utils/slpStream";
-import type { SlpRawEventPayload } from "../../common/utils/slpStream";
-import { Command } from "../../common/types";
+import { BroadcastMessageType, ConnectionEvent, ConnectionStatus, Ports } from "./types";
 
 const DEFAULT_CONNECTION_TIMEOUT_MS = 20000;
 
@@ -405,7 +404,9 @@ export class ConsoleConnection extends TypedEventEmitter<ConnectionEventMap> imp
       this.broadcastCursor++;
     }
 
-    if (!this.broadcastReady) return;
+    if (!this.broadcastReady) {
+      return;
+    }
 
     // Accumulate payload data
     this.broadcastPayloads.push(Buffer.from(data.payload));

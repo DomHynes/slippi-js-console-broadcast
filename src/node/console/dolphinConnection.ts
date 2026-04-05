@@ -3,8 +3,8 @@ import type { Host, Packet, Peer } from "enet";
 import { TypedEventEmitter } from "../../common/utils/typedEventEmitter";
 import { loadEnetModule } from "./loadEnetModule";
 import type { Connection, ConnectionDetails, ConnectionEventMap, ConnectionSettings } from "./types";
-import { ConnectionEvent, ConnectionStatus, Ports, BroadcastMessageType } from "./types";
 import type { BroadcastMessage } from "./types";
+import { BroadcastMessageType, ConnectionEvent, ConnectionStatus, Ports } from "./types";
 
 const MAX_PEERS = 32;
 
